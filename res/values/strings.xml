@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ChessWatch</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="initialTime">Initial Time</string>
+    <string name="delimiter">|</string>
+    <string name="moveTime">Move Time</string>
+    <string name="start">Start</string>
+    <string name="toggle">Toggle</string>
+    
+    
+</resources>
