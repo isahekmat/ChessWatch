@@ -24,7 +24,7 @@
         android:id="@+id/btnPause"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Pause" />
+        android:text="@string/pause" />
 
     <TextView
         android:id="@+id/blackTimer"

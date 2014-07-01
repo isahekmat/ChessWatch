@@ -11,5 +11,7 @@
     <string name="toggle">Toggle</string>
     <string name="tickWhite">Tick - White</string>
     <string name="tickBlack">Tick - Black</string>
+    <string name="pause">Pause</string>
+    <string name="unpause">UnPause</string>
     
 </resources>

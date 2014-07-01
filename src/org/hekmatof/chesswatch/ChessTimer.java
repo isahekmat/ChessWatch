@@ -48,6 +48,10 @@ public abstract class ChessTimer {
 		onPause();
 	}
 
+	public void pauseOnPauseBtn(){
+		running = false;
+	}
+	
 	public void stop() {
 		this.taskTimer.cancel();
 	}

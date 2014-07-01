@@ -27,16 +27,20 @@ public class WatchActivity extends Activity {
 
 	private Button btnWhite;
 	private Button btnBlack;
-	private boolean pauseOnWhite = false;
+	private boolean isWhite = true;
+
+	private Button btnPause;
+
+	private boolean onPause = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.watch);
-/*		int initTime = getIntent().getExtras().getInt("initTime");
-		int moveTime = getIntent().getExtras().getInt("moveTime");*/
-		int initTime = 10;
-		int moveTime = 10;
+
+		int initTime = getIntent().getExtras().getInt("initTime");
+		int moveTime = getIntent().getExtras().getInt("moveTime");
+
 		initClocks(initTime, moveTime);
 		setupButtons();
 		wTimer.start();
@@ -46,6 +50,8 @@ public class WatchActivity extends Activity {
 		btnWhite = (Button) WatchActivity.this.findViewById(R.id.tickWhite);
 
 		btnBlack = (Button) WatchActivity.this.findViewById(R.id.tickBlack);
+
+		btnPause = (Button) WatchActivity.this.findViewById(R.id.btnPause);
 
 		btnWhite.setOnClickListener(new View.OnClickListener() {
 
@@ -59,6 +65,7 @@ public class WatchActivity extends Activity {
 						btnBlack.setClickable(true);
 					}
 				});
+				isWhite = false;
 
 			}
 		});
@@ -75,6 +82,50 @@ public class WatchActivity extends Activity {
 						btnWhite.setClickable(true);
 					}
 				});
+				isWhite = true;
+			}
+		});
+
+		btnPause.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				if (onPause) {
+					if (isWhite) {
+						wTimer.start();
+						runOnUiThread(new Runnable() {
+							public void run() {
+								btnBlack.setClickable(false);
+								btnWhite.setClickable(true);
+							}
+						});
+					} else {
+						bTimer.start();
+						runOnUiThread(new Runnable() {
+							public void run() {
+								btnBlack.setClickable(true);
+								btnWhite.setClickable(false);
+							}
+						});
+					}
+					runOnUiThread(new Runnable() {
+						public void run() {
+							btnPause.setText(R.string.pause);
+							onPause = false;
+						}
+					});
+				} else {
+					bTimer.pauseOnPauseBtn();
+					wTimer.pauseOnPauseBtn();
+					onPause = true;
+					runOnUiThread(new Runnable() {
+						public void run() {
+							btnPause.setText(R.string.unpause);
+							btnBlack.setClickable(false);
+							btnWhite.setClickable(false);
+						}
+					});
+				}
 			}
 		});
 	}
