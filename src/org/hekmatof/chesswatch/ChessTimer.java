@@ -56,6 +56,10 @@ public abstract class ChessTimer {
 		return remainTimeInSecond;
 	}
 
+	public boolean isRunning() {
+		return running;
+	}
+
 	public abstract void onTick();
 
 	public abstract void onPause();
