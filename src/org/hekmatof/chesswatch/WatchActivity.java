@@ -33,6 +33,9 @@ public class WatchActivity extends Activity {
 
 	private boolean onPause = false;
 
+	private int moveNum = 1;
+	private TextView tvMoveNum;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -53,6 +56,10 @@ public class WatchActivity extends Activity {
 
 		btnPause = (Button) WatchActivity.this.findViewById(R.id.btnPause);
 
+		tvMoveNum = (TextView) WatchActivity.this.findViewById(R.id.tvMoveNum);
+
+		tvMoveNum.setText(getText(R.string.moveNum).toString() + moveNum);
+
 		btnWhite.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -66,7 +73,6 @@ public class WatchActivity extends Activity {
 					}
 				});
 				isWhite = false;
-
 			}
 		});
 
@@ -83,6 +89,14 @@ public class WatchActivity extends Activity {
 					}
 				});
 				isWhite = true;
+
+				moveNum++;
+				runOnUiThread(new Runnable() {
+					public void run() {
+						tvMoveNum.setText(getText(R.string.moveNum).toString()
+								+ moveNum);
+					}
+				});
 			}
 		});
 
