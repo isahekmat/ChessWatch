@@ -50,15 +50,12 @@ public class WatchActivity extends Activity {
 	}
 
 	private void setupWidget() {
+
 		btnWhite = (Button) WatchActivity.this.findViewById(R.id.tickWhite);
-
 		btnBlack = (Button) WatchActivity.this.findViewById(R.id.tickBlack);
-
 		btnPause = (Button) WatchActivity.this.findViewById(R.id.btnPause);
 
 		tvMoveNum = (TextView) WatchActivity.this.findViewById(R.id.tvMoveNum);
-
-		
 		tvMoveNum.setText(getText(R.string.moveNum).toString() + moveNum);
 
 		wText = (TextView) findViewById(R.id.whiteTimer);
@@ -66,90 +63,10 @@ public class WatchActivity extends Activity {
 
 		wText.setRotation(180);
 		btnWhite.setRotation(180);
-		
-		
-		btnWhite.setOnClickListener(new View.OnClickListener() {
 
-			@Override
-			public void onClick(View v) {
-				wTimer.pause();
-				bTimer.start();
-				runOnUiThread(new Runnable() {
-					public void run() {
-						btnWhite.setClickable(false);
-						btnBlack.setClickable(true);
-					}
-				});
-				isWhite = false;
-			}
-		});
-
-		btnBlack.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View arg0) {
-				bTimer.pause();
-				wTimer.start();
-				runOnUiThread(new Runnable() {
-					public void run() {
-						btnBlack.setClickable(false);
-						btnWhite.setClickable(true);
-					}
-				});
-				isWhite = true;
-
-				moveNum++;
-				runOnUiThread(new Runnable() {
-					public void run() {
-						tvMoveNum.setText(getText(R.string.moveNum).toString()
-								+ moveNum);
-					}
-				});
-			}
-		});
-
-		btnPause.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				if (onPause) {
-					if (isWhite) {
-						wTimer.start();
-						runOnUiThread(new Runnable() {
-							public void run() {
-								btnBlack.setClickable(false);
-								btnWhite.setClickable(true);
-							}
-						});
-					} else {
-						bTimer.start();
-						runOnUiThread(new Runnable() {
-							public void run() {
-								btnBlack.setClickable(true);
-								btnWhite.setClickable(false);
-							}
-						});
-					}
-					runOnUiThread(new Runnable() {
-						public void run() {
-							btnPause.setText(R.string.pause);
-							onPause = false;
-						}
-					});
-				} else {
-					bTimer.pauseOnPauseBtn();
-					wTimer.pauseOnPauseBtn();
-					onPause = true;
-					runOnUiThread(new Runnable() {
-						public void run() {
-							btnPause.setText(R.string.unpause);
-							btnBlack.setClickable(false);
-							btnWhite.setClickable(false);
-						}
-					});
-				}
-			}
-		});
+		btnWhite.setOnClickListener(new ButtonWhiteClick());
+		btnBlack.setOnClickListener(new ButtonBlackClick());
+		btnPause.setOnClickListener(new ButtonPauseClick());
 	}
 
 	private void initClocks(int initTime, int moveTime) {
@@ -245,5 +162,88 @@ public class WatchActivity extends Activity {
 		long minute = bTimer.getRemainTimeInSecond() / 60;
 		long second = bTimer.getRemainTimeInSecond() % 60;
 		bText.setText("Black: " + minute + ":" + second);
+	}
+
+	private class ButtonWhiteClick implements View.OnClickListener {
+
+		@Override
+		public void onClick(View v) {
+			wTimer.pause();
+			bTimer.start();
+			runOnUiThread(new Runnable() {
+				public void run() {
+					btnWhite.setClickable(false);
+					btnBlack.setClickable(true);
+				}
+			});
+			isWhite = false;
+		}
+
+	}
+
+	private class ButtonBlackClick implements View.OnClickListener {
+
+		@Override
+		public void onClick(View arg0) {
+			bTimer.pause();
+			wTimer.start();
+			runOnUiThread(new Runnable() {
+				public void run() {
+					btnBlack.setClickable(false);
+					btnWhite.setClickable(true);
+				}
+			});
+			isWhite = true;
+
+			moveNum++;
+			runOnUiThread(new Runnable() {
+				public void run() {
+					tvMoveNum.setText(getText(R.string.moveNum).toString()
+							+ moveNum);
+				}
+			});
+		}
+	}
+
+	private class ButtonPauseClick implements View.OnClickListener {
+		@Override
+		public void onClick(View v) {
+			if (onPause) {
+				if (isWhite) {
+					wTimer.start();
+					runOnUiThread(new Runnable() {
+						public void run() {
+							btnBlack.setClickable(false);
+							btnWhite.setClickable(true);
+						}
+					});
+				} else {
+					bTimer.start();
+					runOnUiThread(new Runnable() {
+						public void run() {
+							btnBlack.setClickable(true);
+							btnWhite.setClickable(false);
+						}
+					});
+				}
+				runOnUiThread(new Runnable() {
+					public void run() {
+						btnPause.setText(R.string.pause);
+						onPause = false;
+					}
+				});
+			} else {
+				bTimer.pauseOnPauseBtn();
+				wTimer.pauseOnPauseBtn();
+				onPause = true;
+				runOnUiThread(new Runnable() {
+					public void run() {
+						btnPause.setText(R.string.unpause);
+						btnBlack.setClickable(false);
+						btnWhite.setClickable(false);
+					}
+				});
+			}
+		}
 	}
 }
