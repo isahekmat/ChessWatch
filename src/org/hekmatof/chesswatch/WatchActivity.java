@@ -44,12 +44,12 @@ public class WatchActivity extends Activity {
 		int initTime = getIntent().getExtras().getInt("initTime");
 		int moveTime = getIntent().getExtras().getInt("moveTime");
 
+		setupWidget();
 		initClocks(initTime, moveTime);
-		setupButtons();
 		wTimer.start();
 	}
 
-	private void setupButtons() {
+	private void setupWidget() {
 		btnWhite = (Button) WatchActivity.this.findViewById(R.id.tickWhite);
 
 		btnBlack = (Button) WatchActivity.this.findViewById(R.id.tickBlack);
@@ -58,8 +58,16 @@ public class WatchActivity extends Activity {
 
 		tvMoveNum = (TextView) WatchActivity.this.findViewById(R.id.tvMoveNum);
 
+		
 		tvMoveNum.setText(getText(R.string.moveNum).toString() + moveNum);
 
+		wText = (TextView) findViewById(R.id.whiteTimer);
+		bText = (TextView) findViewById(R.id.blackTimer);
+
+		wText.setRotation(180);
+		btnWhite.setRotation(180);
+		
+		
 		btnWhite.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -145,9 +153,6 @@ public class WatchActivity extends Activity {
 	}
 
 	private void initClocks(int initTime, int moveTime) {
-		wText = (TextView) findViewById(R.id.whiteTimer);
-		bText = (TextView) findViewById(R.id.blackTimer);
-
 		wText.setText("White: " + initTime + ":00");
 		bText.setText("Black: " + initTime + ":00");
 
