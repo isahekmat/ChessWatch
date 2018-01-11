@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">ChessWatch</string>
+    <string name="hello_world">Olá Mundo!</string>
+    <string name="action_settings">Configurações</string>
+    <string name="initialTime">Tempo Inicial</string>
+    <string name="delimiter">|</string>
+    <string name="moveTime">Tempo de Movimento</string>
+    <string name="start">Iniciar</string>
+    <string name="toggle">Trocar</string>
+    <string name="tickWhite">Tick - Brancas</string>
+    <string name="tickBlack">Tick - Pretas</string>
+    <string name="pause">Pausar</string>
+    <string name="unpause">Despausar</string>
+    <string name="moveNum">Número do Movimento: </string>
+
+</resources>
